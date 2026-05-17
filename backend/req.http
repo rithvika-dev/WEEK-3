@@ -1,0 +1,33 @@
+
+###
+GET http://localhost:4000/product-api/product
+
+###
+GET http://localhost:4000/product-api/product/123456
+
+###
+POST http://localhost:4000/product-api/product
+content-Type:application/json
+
+{ 
+   "productId":123456,
+   "productName":"Laptop",
+   "price":40000,
+   "brand":"Dell"
+
+}
+
+###
+PUT http://localhost:4000/product-api/product/1234
+content-Type:application/json
+
+{
+   "productId":1234,
+   "productName":"purse",
+   "price":30000,
+   "brand":"dior"
+}
+
+###
+DELETE http://localhost:4000/product-api/product/1223456789
+
