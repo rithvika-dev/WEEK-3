@@ -1,62 +1,71 @@
-# Week-3 Project
+# Week-3 Project: Product Inventory RESTful API
 
-This repository contains the backend implementation for the Week-3 project. It provides a RESTful API built with Node.js and Express for managing a product inventory.
+This repository contains the backend implementation for the **Week-3** project. It provides a robust, modular RESTful API built with **Node.js**, **Express**, and **MongoDB/Mongoose** for managing a product inventory system.
 
-## Project Structure & Architecture
+---
 
-The backend follows a modular architecture designed for scalability, separating the entry point, API routing, and database models.
+## 📁 Project Structure & Architecture
+
+The application follows a clean, modular architecture separating API routing, data modeling, and server initialization to ensure high maintainability and scalability.
 
 ```text
-WEEK-3/
+├── package.json            # Root dependencies (express, mongoose, bcrypt, jwt, etc.)
+├── README.md               # Project documentation
 └── backend/
     ├── API/
-    │   └── productApi.js   # Express router handling MongoDB CRUD operations
+    │   └── productApi.js   # Express router handling CRUD endpoints
     ├── models/
-    │   └── productModel.js # Mongoose schema and data validation rules
-    ├── .env                # Environment variables (PORT, DB_URL)
-    ├── package.json        # Project metadata and dependencies
-    ├── req.http            # HTTP requests for testing the API in VS Code
-    └── server.js           # Main application entry point & fallback in-memory API
+    │   └── productModel.js # Mongoose schema with built-in data validation rules
+    ├── package.json        # Backend metadata and module settings
+    ├── req.http            # VS Code REST Client test requests
+    └── server.js           # Main application entry point and database connection setup
 ```
 
-### Backend Components
+---
 
-1. **`server.js` (Entry Point):**
-   - Configures global middleware (`cors`, `express.json`, `cookie-parser`).
-   - Establishes the connection to the MongoDB database using Mongoose.
-   - Provides a centralized error handling mechanism (404 and 500 error catchers).
-   - Currently includes an **in-memory fallback** implementation of the Product API with custom validation logic.
+## 🛠️ Core Components
 
-2. **`models/productModel.js` (Data Layer):**
-   - Defines the structure of the `product` collection in MongoDB.
-   - Enforces strict data validation:
-     - `productId`: Number (Required)
-     - `productName`: String (Required)
-     - `price`: Number (Required, Minimum: 10000, Maximum: 50000)
-     - `brand`: String (Required)
+### 1. Entry Point (`backend/server.js`)
+- Initializes the Express server and configures global middleware (JSON body parser, Cookie parser).
+- Connects to the local MongoDB database (`mongodb://localhost:27017/anuragdb`).
+- Mounts the Product API router under the `/product-api` path prefix.
+- Starts the server on port `4000`.
 
-3. **`API/productApi.js` (Routing Layer):**
-   - An Express Router module that implements the full CRUD operations using the Mongoose `UserModel`.
-   - Handles async database operations (`save`, `find`, `findById`, `findByIdAndUpdate`, `findByIdAndDelete`).
+### 2. Data Layer (`backend/models/productModel.js`)
+Defines the Mongoose schema for the `product` collection with strict validation rules:
+- **`productId`**: Number (Required)
+- **`productName`**: String (Required)
+- **`price`**: Number (Required, enforced minimum of `10,000` and maximum of `50,000`)
+- **`brand`**: String (Required)
 
-## Features
+> *Note:* The Mongoose model is exported under the variable name `ProductModel` to manage the `product` collection in MongoDB.
 
-- **RESTful Architecture**: Complete CRUD (Create, Read, Update, Delete) endpoints.
-- **Dual Implementation**: Contains both a MongoDB/Mongoose-backed router (`productApi.js`) and an in-memory fallback (`server.js`).
-- **Data Validation**: Both Mongoose schemas and custom in-memory validators ensure data integrity (e.g., price constraints).
-- **Global Error Handling**: Centralized error handling middleware intercepts unexpected server errors and route not found scenarios.
-- **Middleware Integration**: Secure and ready for frontend integration with `cors`, `cookie-parser`, and JSON body parsing.
+### 3. Routing Layer (`backend/API/productApi.js`)
+Express Router module that implements complete asynchronous CRUD operations against MongoDB:
+- Handles product creation, retrieval of all products, finding a specific product by ID, modifying existing records, and deleting items.
 
-## Prerequisites
+---
 
-- [Node.js](https://nodejs.org/) (v14 or higher recommended)
-- [MongoDB](https://www.mongodb.com/) (Local instance or MongoDB Atlas cluster)
+## ✨ Key Features
 
-## Setup Instructions
+- **RESTful Endpoints**: Full CRUD implementation conforming to REST architectural standards.
+- **Data Integrity & Validation**: Built-in Mongoose schema validation prevents invalid product entries (e.g., price range constraints).
+- **ES Modules**: Utilizes modern JavaScript ES Module syntax (`import`/`export`).
+- **Developer Testing**: Includes a ready-to-use `req.http` file for seamless endpoint testing directly inside VS Code.
 
-1. **Navigate to the backend directory:**
+---
+
+## 🚀 Setup & Execution Instructions
+
+### Prerequisites
+- [Node.js](https://nodejs.org/) (v16+ recommended)
+- [MongoDB Community Server](https://www.mongodb.com/try/download/community) running locally on default port `27017`
+
+### Getting Started
+
+1. **Clone or navigate to the project directory:**
    ```bash
-   cd backend
+   cd c:/JAVASCRIPT/WEEK-3/backend
    ```
 
 2. **Install dependencies:**
@@ -64,31 +73,35 @@ WEEK-3/
    npm install
    ```
 
-3. **Environment Configuration:**
-   Ensure you have a `.env` file in the `backend/` directory with the following variables:
-   ```env
-   PORT=4000
-   DB_URL=your_mongodb_connection_string
-   ```
-
-4. **Start the Server:**
+3. **Start the Development Server:**
    ```bash
    node server.js
    ```
-   *The server will start on `http://localhost:4000` (or the port specified in your `.env` file).*
+   *You should see the following logs indicating successful initialization:*
+   ```text
+   db connection success
+   server on port 4000....
+   ```
 
-## API Endpoints
+---
 
-The API is accessible under the `/product-api/` prefix.
+## 📡 API Endpoints Summary
 
-| Method | Endpoint | Description |
-| :--- | :--- | :--- |
-| **POST** | `/product` | Create a new product. |
-| **GET** | `/product` | Retrieve all products. |
-| **GET** | `/product/:productId` | Retrieve a specific product by its ID. |
-| **PUT** | `/product/:productId` | Update an existing product. |
-| **DELETE** | `/product/:productId` | Delete a product. |
+Base URL: `http://localhost:4000/product-api`
 
-## Testing the API
+| HTTP Method | Endpoint | Description | Success Status | Payload / Body |
+| :--- | :--- | :--- | :--- | :--- |
+| **POST** | `/product` | Create a new product | `201 Created` | JSON Product Object |
+| **GET** | `/product` | Retrieve all products | `200 OK` | Array of Products |
+| **GET** | `/product/:productId` | Retrieve a specific product by ID | `200 OK` | Single Product Object |
+| **PUT** | `/product/:productId` | Update a specific product | `200 OK` | Modified Product Fields |
+| **DELETE** | `/product/:productId` | Delete a specific product | `200 OK` | Deleted Product Object |
 
-You can use the provided `req.http` file with the VS Code [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) extension to easily test the API endpoints without needing a separate tool like Postman.
+---
+
+## 🧪 Testing with VS Code REST Client
+
+You can test all endpoints without external tools like Postman:
+1. Install the [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) extension in VS Code.
+2. Open `backend/req.http`.
+3. Click the **`Send Request`** button appearing above any HTTP request block to view responses directly in the editor.
