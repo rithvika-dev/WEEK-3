@@ -4,7 +4,7 @@ This repository contains the backend implementation for the **Week-3** project. 
 
 ---
 
-## 📁 Project Structure & Architecture
+##  Project Structure & Architecture
 
 The application follows a clean, modular architecture separating API routing, data modeling, and server initialization to ensure high maintainability and scalability.
 
@@ -23,7 +23,7 @@ The application follows a clean, modular architecture separating API routing, da
 
 ---
 
-## 🛠️ Core Components
+##  Core Components
 
 ### 1. Entry Point (`backend/server.js`)
 - Initializes the Express server and configures global middleware (JSON body parser, Cookie parser).
@@ -46,7 +46,7 @@ Express Router module that implements complete asynchronous CRUD operations agai
 
 ---
 
-## ✨ Key Features
+##  Key Features
 
 - **RESTful Endpoints**: Full CRUD implementation conforming to REST architectural standards.
 - **Data Integrity & Validation**: Built-in Mongoose schema validation prevents invalid product entries (e.g., price range constraints).
@@ -55,7 +55,7 @@ Express Router module that implements complete asynchronous CRUD operations agai
 
 ---
 
-## 🚀 Setup & Execution Instructions
+##  Setup & Execution Instructions
 
 ### Prerequisites
 - [Node.js](https://nodejs.org/) (v16+ recommended)
@@ -85,7 +85,7 @@ Express Router module that implements complete asynchronous CRUD operations agai
 
 ---
 
-## 📡 API Endpoints Summary
+##  API Endpoints Summary
 
 Base URL: `http://localhost:4000/product-api`
 
@@ -99,7 +99,7 @@ Base URL: `http://localhost:4000/product-api`
 
 ---
 
-## 🧪 Testing with VS Code REST Client
+##  Testing with VS Code REST Client
 
 You can test all endpoints without external tools like Postman:
 1. Install the [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) extension in VS Code.
